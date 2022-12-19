@@ -283,7 +283,7 @@ const Home = ({ subdomain = config.tld }) => {
         </FlexRow>
         <DescLeft>
           <BaseText>How it works:</BaseText>
-          <BaseText>- go to any *.1.country website (e.g. <a href='https://all.1.country' rel='noreferrer'>all.1.country</a>) </BaseText>
+          <BaseText>- go to any *.1.country website (e.g. <a href='https://all.1.country' target='_self' rel='noreferrer'>all.1.country</a>) </BaseText>
           <BaseText>- if you are the first, pay {parameters?.baseRentalPrice?.formatted || '100'} ONE to claim the page for {humanD(parameters?.rentalPeriod) || '3 months'}</BaseText>
           <BaseText>- otherwise, pay double the last person paid to claim the page</BaseText>
           <BaseText>- once claimed, you can embed any tweet on your page!</BaseText>
@@ -299,7 +299,7 @@ const Home = ({ subdomain = config.tld }) => {
           <Row style={{ justifyContent: 'center', flexWrap: 'wrap' }}>
             <SmallTextGrey>last purchase</SmallTextGrey>
             <a
-              href={`https://${parameters.lastRented}${config.tld}`} rel='noreferrer'
+              href={`https://${parameters.lastRented}${config.tld}`} target='_self' rel='noreferrer'
               style={{ color: 'grey', textDecoration: 'none' }}
             >
               <BaseText>{parameters.lastRented}{config.tld}</BaseText>
@@ -323,14 +323,14 @@ const Home = ({ subdomain = config.tld }) => {
           <Row style={{ justifyContent: 'space-between' }}>
 
             {record.prev &&
-              <a href={`https://${record.prev}${config.tld}`} rel='noreferrer' style={{ textDecoration: 'none' }}>
+              <a href={`https://${record.prev}${config.tld}`} target='_self' rel='noreferrer' style={{ textDecoration: 'none' }}>
                 <FlexRow style={{ gap: 16 }}>
                   <SmallTextGrey>{'<'} prev</SmallTextGrey><SmallTextGrey>{record.prev}{config.tld}</SmallTextGrey>
                 </FlexRow>
               </a>}
 
             {record.next &&
-              <a href={`https://${record.next}${config.tld}`} rel='noreferrer' style={{ textDecoration: 'none' }}>
+              <a href={`https://${record.next}${config.tld}`} target='_self' rel='noreferrer' style={{ textDecoration: 'none' }}>
                 <FlexRow style={{ gap: 16 }}>
                   <SmallTextGrey>{record.next}{config.tld}</SmallTextGrey> <SmallTextGrey> next {'>'}</SmallTextGrey>
                 </FlexRow>
