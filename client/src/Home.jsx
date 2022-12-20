@@ -312,7 +312,7 @@ const Home = ({ subdomain = config.tld }) => {
         </Banner>}
       <FlexRow style={{ alignItems: 'baseline', marginTop: 120 }}>
         <Title style={{ margin: 0 }}>{name}</Title>
-        <a href={`https://${config.tldLink}`} rel='noreferrer' style={{ textDecoration: 'none' }}>
+        <a href={`https://${config.tldLink}`} target='_blacnk' rel='noreferrer' style={{ textDecoration: 'none' }}>
           <BaseText style={{ fontSize: 12, color: 'grey', marginLeft: '16px', textDecoration: 'none' }}>
             {subdomain}
           </BaseText>
