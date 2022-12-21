@@ -268,7 +268,7 @@ const Home = ({ subdomain = config.tld }) => {
             <Row style={{ justifyContent: 'center', flexWrap: 'wrap' }}>
               <SmallTextGrey>last purchase</SmallTextGrey>
               <a
-                href={`https://${parameters.lastRented}${config.tld}`} target='_blank' rel='noreferrer'
+                href={`https://${parameters.lastRented}${config.tld}`}
                 style={{ color: 'grey', textDecoration: 'none' }}
               ><BaseText>{parameters.lastRented}{config.tld}</BaseText>
               </a> <BaseText>({lastRentedRecord.lastPrice.formatted} ONE)</BaseText>
@@ -299,7 +299,7 @@ const Home = ({ subdomain = config.tld }) => {
           <Row style={{ justifyContent: 'center', flexWrap: 'wrap' }}>
             <SmallTextGrey>last purchase</SmallTextGrey>
             <a
-              href={`https://${parameters.lastRented}${config.tld}`} target='_blank' rel='noreferrer'
+              href={`https://${parameters.lastRented}${config.tld}`}
               style={{ color: 'grey', textDecoration: 'none' }}
             >
               <BaseText>{parameters.lastRented}{config.tld}</BaseText>
@@ -312,7 +312,7 @@ const Home = ({ subdomain = config.tld }) => {
         </Banner>}
       <FlexRow style={{ alignItems: 'baseline', marginTop: 120 }}>
         <Title style={{ margin: 0 }}>{name}</Title>
-        <a href={`https://${config.tldLink}`} target='_blank' rel='noreferrer' style={{ textDecoration: 'none' }}>
+        <a href={`https://${config.tldLink}`} style={{ textDecoration: 'none' }}>
           <BaseText style={{ fontSize: 12, color: 'grey', marginLeft: '16px', textDecoration: 'none' }}>
             {subdomain}
           </BaseText>
@@ -323,14 +323,14 @@ const Home = ({ subdomain = config.tld }) => {
           <Row style={{ justifyContent: 'space-between' }}>
 
             {record.prev &&
-              <a href={`https://${record.prev}${config.tld}`} target='_blank' rel='noreferrer' style={{ textDecoration: 'none' }}>
+              <a href={`https://${record.prev}${config.tld}`} style={{ textDecoration: 'none' }}>
                 <FlexRow style={{ gap: 16 }}>
                   <SmallTextGrey>{'<'} prev</SmallTextGrey><SmallTextGrey>{record.prev}{config.tld}</SmallTextGrey>
                 </FlexRow>
               </a>}
 
             {record.next &&
-              <a href={`https://${record.next}${config.tld}`} target='_blank' rel='noreferrer' style={{ textDecoration: 'none' }}>
+              <a href={`https://${record.next}${config.tld}`} style={{ textDecoration: 'none' }}>
                 <FlexRow style={{ gap: 16 }}>
                   <SmallTextGrey>{record.next}{config.tld}</SmallTextGrey> <SmallTextGrey> next {'>'}</SmallTextGrey>
                 </FlexRow>
@@ -419,7 +419,15 @@ const Home = ({ subdomain = config.tld }) => {
           <SmallTextGrey>Your address: {address}</SmallTextGrey>
         </>
       )}
-      <SmallTextGrey>Learn more about the future of domain name services: <a href='https://harmony.one/domains' target='_blank' rel='noreferrer'>RADICAL Market for Internet Domains</a></SmallTextGrey>
+      <SmallTextGrey>
+        <a
+          href='https://harmony.one/domains'
+          target='_blank'
+          rel='noreferrer'
+        >
+          <SmallTextGrey> Harmony's Creator Economy & Web3 Nations </SmallTextGrey>
+        </a>
+      </SmallTextGrey>
       <div style={{ height: 200 }} />
     </Container>
   )
