@@ -268,7 +268,7 @@ const Home = ({ subdomain = config.tld }) => {
             <Row style={{ justifyContent: 'center', flexWrap: 'wrap' }}>
               <SmallTextGrey>last purchase</SmallTextGrey>
               <a
-                href={`https://${parameters.lastRented}${config.tld}`} target='_blank' rel='noreferrer'
+                href={`https://${parameters.lastRented}${config.tld}`}
                 style={{ color: 'grey', textDecoration: 'none' }}
               ><BaseText>{parameters.lastRented}{config.tld}</BaseText>
               </a> <BaseText>({lastRentedRecord.lastPrice.formatted} ONE)</BaseText>
@@ -283,7 +283,7 @@ const Home = ({ subdomain = config.tld }) => {
         </FlexRow>
         <DescLeft>
           <BaseText>How it works:</BaseText>
-          <BaseText>- go to any *.1.country website (e.g. <a href='https://all.1.country' target='_self' rel='noreferrer'>all.1.country</a>) </BaseText>
+          <BaseText>- go to any *.1.country website (e.g. <a href='https://all.1.country' target='_blank' rel='noreferrer'>all.1.country</a>) </BaseText>
           <BaseText>- if you are the first, pay {parameters?.baseRentalPrice?.formatted || '100'} ONE to claim the page for {humanD(parameters?.rentalPeriod) || '3 months'}</BaseText>
           <BaseText>- otherwise, pay double the last person paid to claim the page</BaseText>
           <BaseText>- once claimed, you can embed any tweet on your page!</BaseText>
@@ -299,7 +299,7 @@ const Home = ({ subdomain = config.tld }) => {
           <Row style={{ justifyContent: 'center', flexWrap: 'wrap' }}>
             <SmallTextGrey>last purchase</SmallTextGrey>
             <a
-              href={`https://${parameters.lastRented}${config.tld}`} target='_self' rel='noreferrer'
+              href={`https://${parameters.lastRented}${config.tld}`}
               style={{ color: 'grey', textDecoration: 'none' }}
             >
               <BaseText>{parameters.lastRented}{config.tld}</BaseText>
@@ -312,7 +312,7 @@ const Home = ({ subdomain = config.tld }) => {
         </Banner>}
       <FlexRow style={{ alignItems: 'baseline', marginTop: 120 }}>
         <Title style={{ margin: 0 }}>{name}</Title>
-        <a href={`https://${config.tldLink}`} target='_blacnk' rel='noreferrer' style={{ textDecoration: 'none' }}>
+        <a href={`https://${config.tldLink}`} style={{ textDecoration: 'none' }}>
           <BaseText style={{ fontSize: 12, color: 'grey', marginLeft: '16px', textDecoration: 'none' }}>
             {subdomain}
           </BaseText>
@@ -323,14 +323,14 @@ const Home = ({ subdomain = config.tld }) => {
           <Row style={{ justifyContent: 'space-between' }}>
 
             {record.prev &&
-              <a href={`https://${record.prev}${config.tld}`} target='_self' rel='noreferrer' style={{ textDecoration: 'none' }}>
+              <a href={`https://${record.prev}${config.tld}`} style={{ textDecoration: 'none' }}>
                 <FlexRow style={{ gap: 16 }}>
                   <SmallTextGrey>{'<'} prev</SmallTextGrey><SmallTextGrey>{record.prev}{config.tld}</SmallTextGrey>
                 </FlexRow>
               </a>}
 
             {record.next &&
-              <a href={`https://${record.next}${config.tld}`} target='_self' rel='noreferrer' style={{ textDecoration: 'none' }}>
+              <a href={`https://${record.next}${config.tld}`} style={{ textDecoration: 'none' }}>
                 <FlexRow style={{ gap: 16 }}>
                   <SmallTextGrey>{record.next}{config.tld}</SmallTextGrey> <SmallTextGrey> next {'>'}</SmallTextGrey>
                 </FlexRow>
@@ -419,9 +419,10 @@ const Home = ({ subdomain = config.tld }) => {
           <SmallTextGrey>Your address: {address}</SmallTextGrey>
         </>
       )}
-      <SmallTextGrey> 
+      <SmallTextGrey>
         <a
           href='https://harmony.one/domains'
+          target='_blank'
           rel='noreferrer'
         >
           <SmallTextGrey> Harmony's Creator Economy & Web3 Nations </SmallTextGrey>
