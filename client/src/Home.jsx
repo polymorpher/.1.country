@@ -14,13 +14,13 @@ import BN from 'bn.js'
 
 const humanD = humanizeDuration.humanizer({ round: true, largest: 1 })
 
-const Banner = styled(Col)`
-  justify-content: center;
-  border-bottom: 1px solid black;
-  padding: 8px 16px;
-  position: fixed;
-  background: #eee;
-`
+// const Banner = styled(Col)`
+//   justify-content: center;
+//   border-bottom: 1px solid black;
+//   padding: 8px 16px;
+//   position: fixed;
+//   background: #eee;
+// `
 
 const Container = styled(Main)`
   margin: 0 auto;
@@ -105,7 +105,7 @@ const Home = ({ subdomain = config.tld }) => {
   const [address, setAddress] = useState('')
   const [client, setClient] = useState(apis({}))
   const [record, setRecord] = useState(null)
-  const [lastRentedRecord, setLastRentedRecord] = useState(null)
+  // const [lastRentedRecord, setLastRentedRecord] = useState(null)
   const [price, setPrice] = useState(null)
   const [parameters, setParameters] = useState({ rentalPeriod: 0, priceMultiplier: 0 })
   const [tweetId, setTweetId] = useState('')
@@ -204,12 +204,12 @@ const Home = ({ subdomain = config.tld }) => {
     client.getPrice({ name }).then(p => setPrice(p))
   }, [client])
 
-  useEffect(() => {
-    if (!parameters?.lastRented) {
-      return
-    }
-    client.getRecord({ name: parameters.lastRented }).then(r => setLastRentedRecord(r))
-  }, [parameters?.lastRented])
+  // useEffect(() => {
+  //   if (!parameters?.lastRented) {
+  //     return
+  //   }
+  //   // client.getRecord({ name: parameters.lastRented }).then(r => setLastRentedRecord(r))
+  // }, [parameters?.lastRented])
 
   useEffect(() => {
     if (!record?.url) {
@@ -263,21 +263,21 @@ const Home = ({ subdomain = config.tld }) => {
   if (name === '') {
     return (
       <Container>
-        {lastRentedRecord &&
-          <Banner>
-            <Row style={{ justifyContent: 'center', flexWrap: 'wrap' }}>
-              <SmallTextGrey>last purchase</SmallTextGrey>
-              <a
-                href={`https://${parameters.lastRented}${config.tld}`}
-                style={{ color: 'grey', textDecoration: 'none' }}
-              ><BaseText>{parameters.lastRented}{config.tld}</BaseText>
-              </a> <BaseText>({lastRentedRecord.lastPrice.formatted} ONE)</BaseText>
-            </Row>
-            {/* <Row style={{ justifyContent: 'center', flexWrap: 'wrap' }}> */}
-            {/*  <SmallTextGrey>{humanD(Date.now() - lastRentedRecord.timeUpdated)} ago</SmallTextGrey> */}
-            {/*  <SmallTextGrey>by {lastRentedRecord.renter}</SmallTextGrey> */}
-            {/* </Row> */}
-          </Banner>}
+        {/* {lastRentedRecord && */}
+        {/*  <Banner> */}
+        {/*    <Row style={{ justifyContent: 'center', flexWrap: 'wrap' }}> */}
+        {/*      <SmallTextGrey>last purchase</SmallTextGrey> */}
+        {/*      <a */}
+        {/*        href={`https://${parameters.lastRented}${config.tld}`} */}
+        {/*        style={{ color: 'grey', textDecoration: 'none' }} */}
+        {/*      ><BaseText>{parameters.lastRented}{config.tld}</BaseText> */}
+        {/*      </a> <BaseText>({lastRentedRecord.lastPrice.formatted} ONE)</BaseText> */}
+        {/*    </Row> */}
+        {/*    /!* <Row style={{ justifyContent: 'center', flexWrap: 'wrap' }}> *!/ */}
+        {/*    /!*  <SmallTextGrey>{humanD(Date.now() - lastRentedRecord.timeUpdated)} ago</SmallTextGrey> *!/ */}
+        {/*    /!*  <SmallTextGrey>by {lastRentedRecord.renter}</SmallTextGrey> *!/ */}
+        {/*    /!* </Row> *!/ */}
+        {/*  </Banner>} */}
         <FlexRow style={{ alignItems: 'baseline', marginTop: 120 }}>
           <Title style={{ margin: 0 }}>Claim your {subdomain}</Title>
         </FlexRow>
@@ -294,22 +294,22 @@ const Home = ({ subdomain = config.tld }) => {
 
   return (
     <Container>
-      {lastRentedRecord &&
-        <Banner>
-          <Row style={{ justifyContent: 'center', flexWrap: 'wrap' }}>
-            <SmallTextGrey>last purchase</SmallTextGrey>
-            <a
-              href={`https://${parameters.lastRented}${config.tld}`}
-              style={{ color: 'grey', textDecoration: 'none' }}
-            >
-              <BaseText>{parameters.lastRented}{config.tld}</BaseText>
-            </a> <BaseText>({lastRentedRecord.lastPrice.formatted} ONE)</BaseText>
-          </Row>
-          {/* <Row style={{ justifyContent: 'center', flexWrap: 'wrap' }}> */}
-          {/*  <SmallTextGrey>{humanD(Date.now() - lastRentedRecord.timeUpdated)} ago</SmallTextGrey> */}
-          {/*  <SmallTextGrey>by {lastRentedRecord.renter}</SmallTextGrey> */}
-          {/* </Row> */}
-        </Banner>}
+      {/* {lastRentedRecord && */}
+      {/*  <Banner> */}
+      {/*    <Row style={{ justifyContent: 'center', flexWrap: 'wrap' }}> */}
+      {/*      <SmallTextGrey>last purchase</SmallTextGrey> */}
+      {/*      <a */}
+      {/*        href={`https://${parameters.lastRented}${config.tld}`} */}
+      {/*        style={{ color: 'grey', textDecoration: 'none' }} */}
+      {/*      > */}
+      {/*        <BaseText>{parameters.lastRented}{config.tld}</BaseText> */}
+      {/*      </a> <BaseText>({lastRentedRecord.lastPrice.formatted} ONE)</BaseText> */}
+      {/*    </Row> */}
+      {/*    /!* <Row style={{ justifyContent: 'center', flexWrap: 'wrap' }}> *!/ */}
+      {/*    /!*  <SmallTextGrey>{humanD(Date.now() - lastRentedRecord.timeUpdated)} ago</SmallTextGrey> *!/ */}
+      {/*    /!*  <SmallTextGrey>by {lastRentedRecord.renter}</SmallTextGrey> *!/ */}
+      {/*    /!* </Row> *!/ */}
+      {/*  </Banner>} */}
       <FlexRow style={{ alignItems: 'baseline', marginTop: 120 }}>
         <Title style={{ margin: 0 }}>{name}</Title>
         <a href={`https://${config.tldLink}`} style={{ textDecoration: 'none' }}>
