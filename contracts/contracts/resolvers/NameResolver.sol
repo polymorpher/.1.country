@@ -4,7 +4,7 @@ pragma solidity >=0.8.4;
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 
-abstract contract NameResolver is Ownable, AccessControl {
+contract NameResolver is Ownable, AccessControl {
     bytes32 public constant MANAGER_ROLE = keccak256("MANAGER_ROLE");
 
     bytes32 constant lookup = 0x3031323334353637383961626364656600000000000000000000000000000000;
