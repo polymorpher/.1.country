@@ -9,7 +9,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 abstract contract NameResolver {
     function setName(address addr, string memory name) public virtual;
 
-    function name(address addr) external view returns (string memory);
+    function name(address addr) external view virtual returns (string memory);
 }
 
 /**
@@ -198,7 +198,7 @@ contract D1DC is ERC721, Pausable, Ownable {
         require(success, "D1DC: failed to withdraw");
     }
 
-    function setDefaultResolver(address resolver) public override onlyOwner {
+    function setDefaultResolver(address resolver) public onlyOwner {
         require(
             address(resolver) != address(0),
             "Resolver address must not be 0"
@@ -221,15 +221,5 @@ contract D1DC is ERC721, Pausable, Ownable {
 
     function nameByAddr(address addr) public view returns (string memory) {
         return defaultResolver.name(addr);
-    }
-
-    function recordByAddr(address addr)
-        public
-        view
-        returns (NameRecord memory)
-    {
-        string name = defaultResolver.name(addr);
-
-        return nameRecords[keccak256(bytes(name))];
     }
 }
