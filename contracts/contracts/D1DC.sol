@@ -6,6 +6,12 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
+abstract contract NameResolver {
+    function setName(address addr, string memory name) public virtual;
+
+    function name(address addr) external view virtual returns (string memory);
+}
+
 /**
     @title A subdomain manager contract for .1.country (D1DC - Dot 1 Dot Country)
     @author John Whitton (github.com/johnwhitton), reviewed and revised by Aaron Li (github.com/polymorpher)
@@ -16,6 +22,8 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
     D1DC creates ERC721 tokens for each domain registration.
  */
 contract D1DC is ERC721, Pausable, Ownable {
+    NameResolver public defaultResolver;
+
     bool public initialized;
     uint256 public baseRentalPrice;
     uint32 public rentalPeriod;
@@ -43,6 +51,7 @@ contract D1DC is ERC721, Pausable, Ownable {
     event NameRented(string indexed name, address indexed renter, uint256 price, string url);
     event URLUpdated(string indexed name, address indexed renter, string oldUrl, string newUrl);
     event RevenueAccountChanged(address from, address to);
+    event DefaultResolverChanged(NameResolver indexed resolver);
 
     //TODO create the EREC721 token at time of construction
     constructor(
@@ -187,5 +196,30 @@ contract D1DC is ERC721, Pausable, Ownable {
         require(msg.sender == owner() || msg.sender == revenueAccount, "D1DC: must be owner or revenue account");
         (bool success,) = revenueAccount.call{value : address(this).balance}("");
         require(success, "D1DC: failed to withdraw");
+    }
+
+    function setDefaultResolver(address resolver) public onlyOwner {
+        require(
+            address(resolver) != address(0),
+            "Resolver address must not be 0"
+        );
+        defaultResolver = NameResolver(resolver);
+        emit DefaultResolverChanged(NameResolver(resolver));
+    }
+
+    function setNameForAddr(address addr, string calldata name)
+        public
+        whenNotPaused
+    {
+        require(
+            nameRecords[keccak256(bytes(name))].renter == msg.sender,
+            "D1DC: not owner"
+        );
+
+        return defaultResolver.setName(addr, name);
+    }
+
+    function nameByAddr(address addr) public view returns (string memory) {
+        return defaultResolver.name(addr);
     }
 }
