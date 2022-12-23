@@ -207,7 +207,7 @@ contract D1DC is ERC721, Pausable, Ownable {
         emit DefaultResolverChanged(NameResolver(resolver));
     }
 
-    function setNameForAddr(address addr, string calldata name)
+    function setNameForRenter(string calldata name)
         public
         whenNotPaused
     {
@@ -216,7 +216,7 @@ contract D1DC is ERC721, Pausable, Ownable {
             "D1DC: not owner"
         );
 
-        return defaultResolver.setName(addr, name);
+        return defaultResolver.setName(msg.sender, name);
     }
 
     function nameByAddr(address addr) public view returns (string memory) {
