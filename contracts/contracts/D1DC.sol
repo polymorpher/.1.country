@@ -9,7 +9,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 abstract contract NameResolver {
     function setName(address addr, string memory name) public virtual;
 
-    function name(address addr) external view virtual returns (string memory);
+    function nameOf(address addr) external view virtual returns (string memory);
 }
 
 /**
@@ -219,7 +219,7 @@ contract D1DC is ERC721, Pausable, Ownable {
         return defaultResolver.setName(msg.sender, name);
     }
 
-    function nameByAddr(address addr) public view returns (string memory) {
-        return defaultResolver.name(addr);
+    function nameOf(address addr) public view returns (string memory) {
+        return defaultResolver.nameOf(addr);
     }
 }
