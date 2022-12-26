@@ -167,6 +167,10 @@ contract D1DC is ERC721, Pausable, Ownable {
             _safeMint(msg.sender, tokenId);
         }
 
+        if (bytes(defaultResolver.nameOf(msg.sender)).length == 0){
+            defaultResolver.setName(msg.sender, name);
+        }
+
         uint256 excess = msg.value - price;
         if (excess > 0) {
             (bool success,) = msg.sender.call{value : excess}("");
