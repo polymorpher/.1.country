@@ -6,10 +6,10 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
-abstract contract NameResolver {
-    function setName(address addr, string memory name) public virtual;
+interface INameResolver {
+    function setName(address addr, string memory name) external;
 
-    function nameOf(address addr) external view virtual returns (string memory);
+    function nameOf(address addr) external view returns (string memory);
 }
 
 /**
@@ -22,7 +22,7 @@ abstract contract NameResolver {
     D1DC creates ERC721 tokens for each domain registration.
  */
 contract D1DC is ERC721, Pausable, Ownable {
-    NameResolver public defaultResolver;
+    INameResolver public defaultResolver;
 
     bool public initialized;
     uint256 public baseRentalPrice;
@@ -51,7 +51,7 @@ contract D1DC is ERC721, Pausable, Ownable {
     event NameRented(string indexed name, address indexed renter, uint256 price, string url);
     event URLUpdated(string indexed name, address indexed renter, string oldUrl, string newUrl);
     event RevenueAccountChanged(address from, address to);
-    event DefaultResolverChanged(NameResolver indexed resolver);
+    event DefaultResolverChanged(INameResolver indexed resolver);
 
     //TODO create the EREC721 token at time of construction
     constructor(
@@ -114,6 +114,9 @@ contract D1DC is ERC721, Pausable, Ownable {
             bytes32 key = keccak256(bytes(_names[i]));
             nameRecords[key] = _records[i];
             keys.push(key);
+            if(nameRecords[key].renter != address(0)){
+                _safeMint(nameRecords[key].renter, uint256(key));
+            }
             if (i >= 1 && bytes(nameRecords[key].prev).length == 0) {
                 nameRecords[key].prev = _names[i - 1];
             }
@@ -207,8 +210,8 @@ contract D1DC is ERC721, Pausable, Ownable {
             address(resolver) != address(0),
             "Resolver address must not be 0"
         );
-        defaultResolver = NameResolver(resolver);
-        emit DefaultResolverChanged(NameResolver(resolver));
+        defaultResolver = INameResolver(resolver);
+        emit DefaultResolverChanged(INameResolver(resolver));
     }
 
     function setNameForRenter(string calldata name)

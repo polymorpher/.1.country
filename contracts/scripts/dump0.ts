@@ -1,3 +1,5 @@
+// Note: this is written for the very first version of D1DC. It is now deprecated. Please use dump.ts
+
 import dotenv from 'dotenv'
 import fs from 'fs/promises'
 import { ethers } from 'hardhat'
