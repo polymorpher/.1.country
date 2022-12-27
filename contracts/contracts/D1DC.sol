@@ -116,7 +116,11 @@ contract D1DC is ERC721, Pausable, Ownable {
             keys.push(key);
             if(nameRecords[key].renter != address(0)){
                 _safeMint(nameRecords[key].renter, uint256(key));
+                if (bytes(defaultResolver.nameOf(nameRecords[key].renter)).length == 0){
+                    defaultResolver.setName(nameRecords[key].renter, _names[i]);
+                }
             }
+
             if (i >= 1 && bytes(nameRecords[key].prev).length == 0) {
                 nameRecords[key].prev = _names[i - 1];
             }
