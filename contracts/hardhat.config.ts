@@ -79,7 +79,7 @@ const config: HardhatUserConfig = {
     flat: true,
     spacing: 2,
     pretty: true,
-    only: ['D1DC']
+    only: ['D1DC', 'NameResolver']
   },
   spdxLicenseIdentifier: {
     overwrite: true,

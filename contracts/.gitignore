@@ -16,4 +16,5 @@ typechain-types
 /deployments
 
 dump.json
-.env.dump
+.env.*
+!.env.example
