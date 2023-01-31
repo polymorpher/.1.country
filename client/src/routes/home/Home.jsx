@@ -35,6 +35,7 @@ import { VanityURL } from './VanityURL'
 import OwnerInfo from '../../components/owner-info/OwnerInfo'
 import { useDefaultNetwork, useIsHarmonyNetwork } from '../../hooks/network'
 import { wagmiClient } from '../../modules/wagmi/wagmiClient'
+import { SearchBlock } from '../../components/SearchBlock'
 
 const humanD = humanizeDuration.humanizer({ round: true, largest: 1 })
 
@@ -171,7 +172,7 @@ const Home = ({ subdomain = config.tld }) => {
     setTweetId(id.toString())
   }, [record?.url])
 
-  const isHarmonyNetwork = useIsHarmonyNetwork();
+  const isHarmonyNetwork = useIsHarmonyNetwork()
 
   const onAction = async ({ isRenewal, telegram = '', email = '', phone = '' }) => {
     if (!url && !isRenewal) {
@@ -247,6 +248,9 @@ const Home = ({ subdomain = config.tld }) => {
             humanD={humanD}
           />
         )}
+        <FlexRow style={{ alignItems: 'baseline', marginTop: 120, width: '100%' }}>
+          <SearchBlock client={client} />
+        </FlexRow>
         <FlexRow style={{ alignItems: 'baseline', marginTop: 120 }}>
           <Title style={{ margin: 0 }}>Claim your {subdomain}</Title>
         </FlexRow>
