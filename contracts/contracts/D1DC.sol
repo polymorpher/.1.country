@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: CC-BY-NC-4.0
 
 pragma solidity ^0.8.17;
 
@@ -138,24 +138,24 @@ contract D1DC is ERC721, Pausable, Ownable {
 
     // User functions
 
-    function getPrice(bytes32 encodedName) public view returns (uint256) {
+    function getPrice(bytes32 encodedName, address dest) public view returns (uint256) {
         NameRecord storage nameRecord = nameRecords[encodedName];
         if (nameRecord.timeUpdated + rentalPeriod <= uint32(block.timestamp)) {
             return baseRentalPrice;
         }
-        return nameRecord.renter == msg.sender ? nameRecord.lastPrice : nameRecord.lastPrice * priceMultiplier;
+        return nameRecord.renter == dest ? nameRecord.lastPrice : nameRecord.lastPrice * priceMultiplier;
     }
 
-    function rent(string calldata name, string calldata url) public payable whenNotPaused {
+    function rent(string calldata name, string calldata url, address to) public payable whenNotPaused {
         require(bytes(name).length <= 128, "D1DC: name too long");
         require(bytes(url).length <= 1024, "D1DC: url too long");
         uint256 tokenId = uint256(keccak256(bytes(name)));
         NameRecord storage nameRecord = nameRecords[bytes32(tokenId)];
-        uint256 price = getPrice(bytes32(tokenId));
+        uint256 price = getPrice(bytes32(tokenId), to);
         require(price <= msg.value, "D1DC: insufficient payment");
 
         address originalOwner = nameRecord.renter;
-        nameRecord.renter = msg.sender;
+        nameRecord.renter = to;
         nameRecord.lastPrice = price;
         nameRecord.timeUpdated = uint32(block.timestamp);
 
@@ -166,16 +166,16 @@ contract D1DC is ERC721, Pausable, Ownable {
         lastRented = name;
 
         if (_exists(tokenId)) {
-            _safeTransfer(originalOwner, msg.sender, tokenId, "");
+            _safeTransfer(originalOwner, to, tokenId, "");
         } else {
             nameRecords[keccak256(bytes(lastCreated))].next = name;
             nameRecord.prev = lastCreated;
             lastCreated = name;
-            _safeMint(msg.sender, tokenId);
+            _safeMint(to, tokenId);
         }
 
-        if (bytes(defaultResolver.nameOf(msg.sender)).length == 0){
-            defaultResolver.setName(msg.sender, name);
+        if (bytes(defaultResolver.nameOf(to)).length == 0){
+            defaultResolver.setName(to, name);
         }
 
         uint256 excess = msg.value - price;
